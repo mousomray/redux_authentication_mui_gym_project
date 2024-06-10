@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../Common/Layout'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,7 +7,7 @@ import { registerUser } from '../Auth/authslice';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Container, Avatar, Grid, CssBaseline, TextField, Button, Box, FormControlLabel, Checkbox, Paper } from '@mui/material';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
- import Loader2 from '../Common/Loader2';
+import Loader2 from '../Common/Loader2';
 
 const initialValue = {
     name: "",
@@ -70,7 +70,7 @@ const Register = () => {
         }
     };
 
-    const SubmitInfo = (e) => {
+    const SubmitInfo = async (e) => {
         e.preventDefault();
         const ErrorList = validation();
         setError(ErrorList);
@@ -83,25 +83,17 @@ const Register = () => {
             formData.append('phone', user.phone);
             formData.append('answer', user.answer);
             formData.append('image', image);
-            dispatch(registerUser(formData));
-            setUser(initialValue);
-            setImage('');
+            const response = await dispatch(registerUser(formData));
+
+            console.log("Registration Response is", response);
+
+            if (response && response?.payload?.success === true) {
+                setUser(initialValue);
+                setImage('');
+                navigate('/login')
+            }
         }
     };
-
-    // For Redirect which is part of Authentication (Start) 
-    const redirectUser = () => {
-        const name = localStorage.getItem('name');
-        const isInLoginPage = window.location.pathname.toLowerCase() === '/register';
-        if (name !== null && name !== undefined && name !== '') {
-            isInLoginPage && navigate('/login');
-        }
-    };
-
-    useEffect(() => {
-        redirectUser();
-    }, [redirectReg]);
-    // For Redirect which is part of Authentication (End) 
 
     return (
         <>
@@ -197,7 +189,7 @@ const Register = () => {
                             {/*Image area end*/}
                             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                                 {loading ? <Loader2 /> : 'Register'}
-                                
+
                             </Button>
                         </Box>
                         <Grid container justifyContent="flex-end">

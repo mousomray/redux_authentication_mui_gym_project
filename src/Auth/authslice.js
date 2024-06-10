@@ -6,10 +6,8 @@ import 'react-toastify/dist/ReactToastify.css'
 const initialState = {
     loading: false,
     user: {}, // for user object
-    redirectTo: null, // For Redirect Page 
     Logouttoggle: false, // For Logout Button 
     userName: false,
-    redirectReg: null
 }
 
 export const registerUser = createAsyncThunk("/signup", async (user) => {
@@ -64,6 +62,9 @@ export const AuthSlice = createSlice({
         logout: (state, { payload }) => {
             localStorage.removeItem("token");
             localStorage.removeItem("name");
+            localStorage.removeItem("email");
+            localStorage.removeItem("phone");
+            localStorage.removeItem("id");
             toast.success("Logout successfully")
             state.Logouttoggle = false
 
@@ -73,20 +74,12 @@ export const AuthSlice = createSlice({
         // For to go Register page after keeping token in local storage 
         RegLog: (state, { payload }) => {
             localStorage.removeItem("name");
+            localStorage.removeItem("email");
+            localStorage.removeItem("phone");
+            localStorage.removeItem("id");
             state.Logouttoggle = false
 
         },
-
-
-        // Redirect after login
-        redirectToo: (state, { payload }) => {
-            state.redirectTo = payload
-        },
-
-        // Redirect Register page
-        redirectTo_Register: (state, { payload }) => {
-            state.redirectReg = payload
-        }
 
 
     },
@@ -106,7 +99,6 @@ export const AuthSlice = createSlice({
                 state.loading = false;
                 if (payload && payload.data?.success === true) { // Check if payload exists
                     localStorage.setItem("name", payload.data.savedMember.name);
-                    state.redirectReg = "/login";
                     toast.success(`Hi ${payload?.data?.name}, ${payload?.message}`);
                 }
             })
@@ -128,8 +120,10 @@ export const AuthSlice = createSlice({
                 if (payload?.status === 200) {
                     localStorage.setItem("token", payload?.token);
                     localStorage.setItem("name", payload?.data.name);
+                    localStorage.setItem("email", payload?.data.email);
+                    localStorage.setItem("phone", payload?.data.phone);
+                    localStorage.setItem("id", payload?.data._id);
                     state.Logouttoggle = true;
-                    state.redirectTo = "/service";
                     toast.success(`Hi ${payload?.data.name}, ${payload?.message}`);
                 }
             })
@@ -141,4 +135,4 @@ export const AuthSlice = createSlice({
 })
 
 export const {
-    check_token, redirectToo, logout, redirectTo_Register, RegLog } = AuthSlice.actions
+    check_token, logout, RegLog } = AuthSlice.actions

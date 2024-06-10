@@ -15,6 +15,7 @@ import Blog from './Pages/Blog';
 import Blogdetails from './Pages/Blogdetails';
 import Booking from './Pages/Booking';
 import Contact from './Pages/Contact';
+import Dashboard from './Pages/Dashboard';
 
 const App = () => {
 
@@ -54,6 +55,10 @@ const App = () => {
     {
       path: '/contact',
       component: <Contact />
+    },
+    {
+      path: '/dashboard',
+      component: <Dashboard />
     }
   ]
 

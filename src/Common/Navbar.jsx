@@ -150,7 +150,7 @@ function ResponsiveAppBar() {
                                 <>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                            <Avatar alt={name} src="https://cdn-icons-png.flaticon.com/128/219/219970.png" />
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
@@ -173,8 +173,14 @@ function ResponsiveAppBar() {
                                             <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
                                                 {setting === 'Profile' ? (
                                                     <Typography textAlign="center">Profile: {name}</Typography>
+                                                ) : setting === 'Update Password' ? (
+                                                    <Typography textAlign="center">
+                                                        <Link to="/update">Update Password</Link>
+                                                    </Typography>
                                                 ) : (
-                                                    <Typography textAlign="center">{setting}</Typography>
+                                                    <Typography textAlign="center">
+                                                        <Link to={`/${setting.toLowerCase()}`}>{setting}</Link>
+                                                    </Typography>
                                                 )}
                                             </MenuItem>
                                         ))}

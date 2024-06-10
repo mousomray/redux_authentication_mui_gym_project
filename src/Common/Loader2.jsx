@@ -6,8 +6,8 @@ const Loader2 = () => {
         <>
             <Vortex
                 visible={true}
-                height="80"
-                width="80"
+                height="50"
+                width="50"
                 ariaLabel="vortex-loading"
                 wrapperStyle={{}}
                 wrapperClass="vortex-wrapper"

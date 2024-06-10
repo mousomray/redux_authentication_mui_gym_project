@@ -8,6 +8,7 @@ import servicedetaildetails from "../Allreducers/servicedetailslice"
 import blogdetails from "../Allreducers/blogslice"
 import blogdetaildetails from "../Allreducers/blogdetailslice"
 import bookingdetails from "../Allreducers/bookingslice"
+import showbookingslice from "../Allreducers/showbookingslice"
 
 
 export const store = configureStore({
@@ -20,6 +21,7 @@ export const store = configureStore({
         myservicedetail: servicedetaildetails, // Reduce for Servicedetail
         myblog: blogdetails, // Reduce for Blog
         myblogdetail: blogdetaildetails, // Reduce for Servicedetails
-        mybooking: bookingdetails
+        mybooking: bookingdetails,
+        myshowbooking: showbookingslice
     },
 });

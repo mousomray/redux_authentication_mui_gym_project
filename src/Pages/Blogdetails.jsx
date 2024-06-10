@@ -19,6 +19,10 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useSelector, useDispatch } from 'react-redux';
+// Import Api function area
+import { blogdetail } from '../Allreducers/blogdetailslice';
+import { Link, useParams } from 'react-router-dom';
+import Loader1 from '../Common/Loader1';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -39,10 +43,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-// Import Api function area
-import { blogdetail } from '../Allreducers/blogdetailslice';
-import { useParams } from 'react-router-dom';
-import Loader1 from '../Common/Loader1';
+
 
 const Blogdetails = () => {
 
@@ -75,7 +76,7 @@ const Blogdetails = () => {
         <>
             <Layout>
 
-                <div className='container' style={{ marginTop: '100px' }}>
+                <div className='container-fluid' style={{ marginTop: '70px' }}>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
 
@@ -83,31 +84,34 @@ const Blogdetails = () => {
 
                                 {/*Card Area Start*/}
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Card sx={{ maxWidth: 500, justifyContent: 'center', alignItems: 'center', boxShadow: '0px 2px 0px 2px #E31C25' }}>
+                                    <Card sx={{ width: '100%', justifyContent: 'center', alignItems: 'center', boxShadow: '0px 2px 0px 2px #E31C25', backgroundColor: 'black' }}>
                                         <CardMedia
                                             component="img"
                                             height="400"
                                             image={`${process.env.REACT_APP_BASE_URL}${blogdetaildata.image}`}
                                             alt="Paella dish"
                                         />
-                                        <CardContent>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <h1>{blogdetaildata?.title}</h1>
+                                        <CardContent style={{ color: 'red' }}>
+                                            <Typography gutterBottom variant="h3" component="div" sx={{ color: 'red' }}>
+                                                {blogdetaildata?.title}
                                             </Typography>
                                         </CardContent>
 
                                         <CardContent>
-                                            <Typography paragraph>
+                                            <Typography paragraph sx={{ color: 'yellow' }}>
                                                 {blogdetaildata?.subtitle}
                                             </Typography>
 
                                         </CardContent>
 
                                         <CardContent>
-                                            <Typography paragraph>
+                                            <Typography paragraph sx={{ color: 'white' }}>
                                                 {blogdetaildata?.content}
                                             </Typography>
 
+                                        </CardContent>
+                                        <CardContent>
+                                            <Link to='/blog'><button type="button" class="btn btn-danger">Back</button></Link>
                                         </CardContent>
 
                                     </Card>

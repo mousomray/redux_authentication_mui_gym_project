@@ -1,22 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../api/api"
+import { toast } from "react-toastify";
 
 // Call Api for booking Slider
-export const booking = createAsyncThunk("booking", async (id, { rejectWithValue }) => {
+export const booking = createAsyncThunk("booking", async (data, { rejectWithValue }) => {
     try {
-        const apiurl = `viewBooking/${id}`
-        const response = await axiosInstance.get(apiurl);
+        const apiurl = 'booking'
+        const response = await axiosInstance.post(apiurl, data);
         console.log("Fetching booking data", response);
-        return response?.data?.result
+        toast.succes(response?.data?.message)
+        return response?.data
     } catch (error) {
         console.log("Error Fetching booking data", error);
+        toast.error(error?.response?.data?.message)
         return rejectWithValue(error.response.data);
     }
 });
 
 // createSlice area start
 const bookingdetails = createSlice({
-    name: "bookingdetails",
+    name: "booking",
     initialState: {
         bookingdata: [],
         loading: false,

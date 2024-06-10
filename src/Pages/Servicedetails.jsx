@@ -20,6 +20,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader1 from '../Common/Loader1';
+// Import Api function area
+import { servicedetail } from '../Allreducers/servicedetailslice';
+import { Link, useParams } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -40,9 +43,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-// Import Api function area
-import { servicedetail } from '../Allreducers/servicedetailslice';
-import { useParams } from 'react-router-dom';
+
 
 const Servicedetails = () => {
 
@@ -75,7 +76,7 @@ const Servicedetails = () => {
         <>
             <Layout>
 
-                <div className='container' style={{ marginTop: '100px' }}>
+                <div className='container-fluid' style={{ marginTop: '70px' }}>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={2}>
 
@@ -83,24 +84,27 @@ const Servicedetails = () => {
 
                                 {/*Card Area Start*/}
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Card sx={{ maxWidth: 500, justifyContent: 'center', alignItems: 'center', boxShadow: '0px 2px 0px 2px #E31C25' }}>
+                                    <Card sx={{ width: '100%', justifyContent: 'center', alignItems: 'center', boxShadow: '0px 2px 0px 2px #E31C25', backgroundColor: 'black' }}>
                                         <CardMedia
                                             component="img"
                                             height="400"
                                             image={`${process.env.REACT_APP_BASE_URL}${servicedetaildata.image}`}
                                             alt="Paella dish"
                                         />
-                                        <CardContent>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <h1>{servicedetaildata?.service_name}</h1>
+                                        <CardContent sx={{ color: 'red' }}>
+                                            <Typography gutterBottom variant="h3" component="div" sx={{ color: 'red' }}>
+                                                {servicedetaildata?.service_name}
                                             </Typography>
                                         </CardContent>
 
                                         <CardContent>
-                                            <Typography paragraph>
+                                            <Typography paragraph sx={{ color: 'white' }}>
                                                 {servicedetaildata?.service_description}
                                             </Typography>
 
+                                        </CardContent>
+                                        <CardContent>
+                                            <Link to={`/booking/${id}`}><button type="button" class="btn btn-danger">Booking</button></Link>
                                         </CardContent>
 
                                     </Card>

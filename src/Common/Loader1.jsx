@@ -1,18 +1,18 @@
 import React from 'react'
-import { Comment } from 'react-loader-spinner'
+import { BallTriangle } from 'react-loader-spinner'
 
 const Loader1 = () => {
     return (
         <>
-            <Comment
-                visible={true}
-                height="200"
-                width="200"
-                ariaLabel="comment-loading"
+            <BallTriangle
+                height={100}
+                width={100}
+                radius={5}
+                color="red"
+                ariaLabel="ball-triangle-loading"
                 wrapperStyle={{}}
-                wrapperClass="comment-wrapper"
-                color="#fff"
-                backgroundColor="#F4442E"
+                wrapperClass=""
+                visible={true}
             />
         </>
     )

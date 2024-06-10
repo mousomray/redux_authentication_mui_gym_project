@@ -40,7 +40,10 @@ const Login = () => {
         setError(ErrorList);
 
         if (Object.keys(ErrorList).length === 0) {
-            dispatch(loginRequest(user));
+            const response = await dispatch(loginRequest(user));
+            if (response && response?.payload?.status === 200) {
+                navigate('/service')
+            }
         }
     };
 
@@ -56,20 +59,6 @@ const Login = () => {
         }
         return error;
     };
-
-    // Redirect if get the token or not get the token 
-    const redirectUser = () => {
-        let token = localStorage.getItem("token")
-        let isInLoginPage = window.location.pathname.toLowerCase() === "/login";
-
-        if (token !== null && token !== undefined && token !== "") {
-            isInLoginPage && navigate("/service");
-        }
-    }
-    useEffect(() => {
-        redirectUser()
-    }, [redirectTo])
-
 
 
     // If I not use this function then I can't go register page when token will be present in local storage
@@ -97,7 +86,7 @@ const Login = () => {
                     <Typography component="h1" variant="h5">
                         Login
                     </Typography>
-                    <Box component="form"  onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -107,10 +96,10 @@ const Login = () => {
                             name="email"
                             autoComplete="email"
                             autoFocus
-                        value={user.email}
-                        onChange={handleChange}
-                        error={!!error.email}
-                        helperText={error.email}
+                            value={user.email}
+                            onChange={handleChange}
+                            error={!!error.email}
+                            helperText={error.email}
                         />
                         <TextField
                             margin="normal"
@@ -121,10 +110,10 @@ const Login = () => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                        value={user.password}
-                        onChange={handleChange}
-                        error={!!error.password}
-                        helperText={error.password}
+                            value={user.password}
+                            onChange={handleChange}
+                            error={!!error.password}
+                            helperText={error.password}
                         />
                         <Button
                             type="submit"
@@ -133,7 +122,7 @@ const Login = () => {
                             sx={{ mt: 3, mb: 2 }}
                         >
                             {loading ? <Loader2 /> : 'Login'}
-                            
+
                         </Button>
                         <Grid container>
                             <Grid item>
